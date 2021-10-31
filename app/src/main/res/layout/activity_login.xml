@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:mask="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="8dp"
+    tools:context=".core1.ui.login.LoginActivity">
+
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center"
+        android:src="@drawable/login_logo" />
+
+    <TextView
+        android:id="@+id/txt_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:gravity="center"
+        android:text="لاگ ان"
+        android:textColor="@color/hm"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+
+    <!--
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/primaryDark" />
+    -->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginTop="15dp"
+        android:text="رجسٹریشن نمبر / شناختی کارڈ"
+        android:textColor="@color/hm"
+        android:textSize="18dp" />
+
+    <br.com.sapereaude.maskedEditText.MaskedEditText
+        android:id="@+id/et_loginUserName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:inputType="number"
+        android:textColor="@color/hm"
+        android:typeface="monospace"
+        app:keep_hint="true"
+        mask:allowed_chars="1234567890"
+        mask:mask="#####-#######-#" />
+
+
+    <!--
+        <br.com.sapereaude.maskedEditText.MaskedEditText
+            android:id="@+id/et_loginUserName"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/et_backgrund"
+            android:drawableLeft="@drawable/ic_username"
+            android:drawableTint="@color/blue"
+            android:inputType="phone"
+            android:singleLine="true"
+            android:textColor="@color/primaryDark"
+            android:typeface="monospace"
+            app:keep_hint="true"
+            mask:allowed_chars="1234567890"
+            mask:mask="#####-#######-#" />
+    -->
+
+    <!--  <EditText
+          android:id="@+id/et_loginUserName"
+          android:layout_width="match_parent"
+          android:layout_height="50dp"
+          android:layout_marginTop="2dp"
+          android:background="@drawable/et_backgrund"
+          android:drawableLeft="@drawable/ic_username"
+          android:drawableTint="@color/primaryDark"
+          android:inputType="text"
+          android:singleLine="true"
+          android:textColor="@color/primaryDark" />-->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginTop="10dp"
+        android:text="خفیہ لفظ / پاسورڈ"
+        android:textColor="@color/hm"
+        android:textSize="18dp" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/et_loginUserPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:inputType="textPassword"
+        android:textColor="@color/hwhite" />
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/checkbox_show_hide_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:buttonTint="@color/hwhite"
+        android:gravity="right"
+        android:layoutDirection="rtl"
+        android:padding="5dp"
+        android:text="پاسورڈ دیکھو"
+        android:textColor="@color/hm"
+        android:textSize="18dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:orientation="vertical">
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_Login"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:background="@drawable/rounded_shap"
+            android:text="لاگ ان کریں"
+            android:textColor="@color/white"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:visibility="visible"
+            tools:visibility="visible" />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/txt_registration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="25dp"
+        android:text="کوئی اکاؤنٹ نہیں ہے؟ یہاں بنائیں"
+        android:textColor="@color/hm"
+        android:textSize="16dp"
+        android:textStyle="bold" />
+</LinearLayout>

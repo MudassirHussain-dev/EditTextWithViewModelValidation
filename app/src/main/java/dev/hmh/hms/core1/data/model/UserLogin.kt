@@ -1,0 +1,25 @@
+package dev.hmh.hms.core1.data.model
+
+data class UserLogin(
+    val EMPID: String?=null,
+    val BRANCHID: String?=null,
+    val HOSPITALID: String?=null,
+    val USERID: String?=null,
+    val EMPNAME: String?=null,
+    val FATHERNAME: String?=null,
+    val CNIC: String?=null,
+    val MOBILENO: String?=null,
+    val DOB: String?=null,
+    val AGE: String?=null,
+    val ADDRESS: String?=null,
+    val DepartmentId: String?=null,
+    val TIMEID: String?=null,
+    val POSITIONNAME: String?=null,
+    val DUTIES: String?=null,
+    val STATUS: String?=null,
+    val IMAGE: String?=null,
+    val PWD: String?=null,
+    val RECID: String?=null,
+    val LEVEL: String?=null,
+    val CITY: String?=null,
+)
