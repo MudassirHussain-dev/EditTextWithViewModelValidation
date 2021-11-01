@@ -15,16 +15,16 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
-//private const val BASE_URL = "https://api.exchangeratesapi.io/"
+
 
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
-
+    private const val BASE_URL = "https://aampower.app/hms/"
     @Singleton
     @Provides
     fun provideCurrencyApi(): MyApi = Retrofit.Builder()
-        .baseUrl("https://aampower.app/hms/")
+        .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
         .create(MyApi::class.java)

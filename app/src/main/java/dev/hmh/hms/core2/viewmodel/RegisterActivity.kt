@@ -9,6 +9,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import dev.hmh.hms.R
 import dev.hmh.hms.databinding.ActivityRegisterBinding
 import kotlinx.coroutines.flow.collect
+import java.security.MessageDigest
 
 @AndroidEntryPoint
 class RegisterActivity : AppCompatActivity() {
@@ -35,7 +36,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun backgroundUserLogin() {
-        viewModel.userLogin(str_userName,str_Password)
+        viewModel.userLogin("00000-0000000-0",md5("123"))
         lifecycleScope.launchWhenCreated {
             viewModel.response.collect {
                 when (it) {
@@ -59,6 +60,22 @@ class RegisterActivity : AppCompatActivity() {
                     else -> Unit
                 }
             }
+        }
+
+    }
+
+    fun md5(toEncrypt: String): String {
+        return try {
+            val digest = MessageDigest.getInstance("md5")
+            digest.update(toEncrypt.toByteArray())
+            val bytes = digest.digest()
+            val sb = StringBuilder()
+            for (i in bytes.indices) {
+                sb.append(String.format("%02X", bytes[i]))
+            }
+            sb.toString().toLowerCase()
+        } catch (exc: Exception) {
+            "" // Impossibru!
         }
 
     }
