@@ -11,12 +11,10 @@ import dev.hmh.hms.core2.data.UserLogin1
 import dev.hmh.hms.core2.data.repository.MainRepository
 import dev.hmh.util.DispatcherProvider
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import okhttp3.Dispatcher
+import java.security.MessageDigest
 import javax.inject.Inject
 
 @HiltViewModel
@@ -25,6 +23,7 @@ class LoginViewModel
 constructor(
     private val repository: AppRepository,
 ) : ViewModel() {
+
     sealed class CurrentEvent() {
         data class Success(val resultText: UserLogin) : CurrentEvent()
         data class Failure(val error: String) : CurrentEvent()
@@ -32,46 +31,66 @@ constructor(
         object Empty : CurrentEvent()
     }
 
-    private val _response:MutableStateFlow<CurrentEvent> = MutableStateFlow(CurrentEvent.Empty)
+    private val _response: MutableStateFlow<CurrentEvent> = MutableStateFlow(CurrentEvent.Empty)
     val response: StateFlow<CurrentEvent> = _response
 
-    fun userLogin(userName: String, password: String) {
-        if (userName.isEmpty() && password.isEmpty()) {
-            _response.value = CurrentEvent.Failure("UserName and Password are empty")
-            return
-        }
+    private val _sharedFlow = MutableSharedFlow<CurrentEvent>()
 
-        if (userName.isEmpty()) {
-            _response.value = CurrentEvent.Failure("UserName is empty")
-            return
-        }
-        if (password.isEmpty()) {
-            _response.value = CurrentEvent.Failure("Password is empty")
-            return
-        }
+    //   val sharedFlow = _sharedFlow.asSharedFlow()
+    val sharedFlow: SharedFlow<CurrentEvent> = _sharedFlow
+
+
+    fun userLogin(userName: String, password: String) {
+
         viewModelScope.launch(Dispatchers.IO) {
-            repository.userLogin(userName,password).collect {
-                when(it){
-                    is ApiState.Loading->{
-                        _response.value = CurrentEvent.Loading
+            /*if (userName.isEmpty() && password.isEmpty()) {
+                _response.value = CurrentEvent.Failure("UserName and Password are empty")
+                return@launch
+            }*/
+
+            if (userName.isBlank() || userName.isEmpty()) {
+                //_response.value = CurrentEvent.Failure("UserName is empty")
+                _sharedFlow.emit(CurrentEvent.Failure("UserName is empty"))
+                return@launch
+
+            }
+            if (password.isBlank() || password.isEmpty()) {
+                _sharedFlow.emit(CurrentEvent.Failure("Password is empty"))
+                // _response.value = CurrentEvent.Failure("Password is empty")
+                return@launch
+            }
+            repository.userLogin(userName, md5(password)).collect {
+                _sharedFlow.emit(CurrentEvent.Loading)
+                when (it) {
+                    is ApiState.Loading -> {
+                        _sharedFlow.emit(CurrentEvent.Loading)
                     }
-                    is ApiState.Error ->{
-                        _response.value = CurrentEvent.Failure("Error: "+it.message!!)
+                    is ApiState.Error -> {
+                        _sharedFlow.emit(CurrentEvent.Failure("Error: " + it.message!!))
+                        // _response.value = CurrentEvent.Failure("Error: "+it.message!!)
                     }
                     is ApiState.Success -> {
-                        _response.value = CurrentEvent.Success(it.data!!)
+                        // _response.value = CurrentEvent.Success(it.data!!)
+                        if (it.data!!.EMPID == null) {
+                            _sharedFlow.emit(CurrentEvent.Failure("Invalid UserName or Password"))
+                        } else {
+                            _sharedFlow.emit(CurrentEvent.Success(it.data))
+                        }
+
                     }
                 }
             }
-         /*   _response.value = CurrentEvent.Loading
-            when (val responses = repository.userLogin(userName, password)) {
-                is Resource.Error -> {
-                    _response.value = CurrentEvent.Failure("Error: "+responses.message!!)
-                }
-                is Resource.Success -> {
-                    val result = responses.data
-                    _response.value = CurrentEvent.Success(responses.data!!)
-                   *//* if (result?.EMPID == null) {
+
+
+            /*   _response.value = CurrentEvent.Loading
+               when (val responses = repository.userLogin(userName, password)) {
+                   is Resource.Error -> {
+                       _response.value = CurrentEvent.Failure("Error: "+responses.message!!)
+                   }
+                   is Resource.Success -> {
+                       val result = responses.data
+                       _response.value = CurrentEvent.Success(responses.data!!)
+                      *//* if (result?.EMPID == null) {
                         _response.value = CurrentEvent.Failure("Unexpected Error")
                     } else {
                         _response.value = CurrentEvent.Success(responses.data)
@@ -81,17 +100,16 @@ constructor(
         }
 
 
+        /*   private val _response: MutableStateFlow<ApiState<UserLogin>> = MutableStateFlow(ApiState.Loading())
+           val response = _response.asStateFlow()
+           fun userLogin(CNIC: String, PWD: String) {
+               viewModelScope.launch {
+                   appRepository.userLogin(CNIC, PWD).collect {
 
-     /*   private val _response: MutableStateFlow<ApiState<UserLogin>> = MutableStateFlow(ApiState.Loading())
-        val response = _response.asStateFlow()
-        fun userLogin(CNIC: String, PWD: String) {
-            viewModelScope.launch {
-                appRepository.userLogin(CNIC, PWD).collect {
 
-
-                }
-            }
-        }*/
+                   }
+               }
+           }*/
     }
 
     /*private val _response: MutableStateFlow<ApiState<UserLogin>> =
@@ -105,5 +123,19 @@ constructor(
             }
         }
     }*/
+    fun md5(toEncrypt: String): String {
+        return try {
+            val digest = MessageDigest.getInstance("md5")
+            digest.update(toEncrypt.toByteArray())
+            val bytes = digest.digest()
+            val sb = StringBuilder()
+            for (i in bytes.indices) {
+                sb.append(String.format("%02X", bytes[i]))
+            }
+            sb.toString().toLowerCase()
+        } catch (exc: Exception) {
+            "" // Impossibru!
+        }
 
+    }
 }
