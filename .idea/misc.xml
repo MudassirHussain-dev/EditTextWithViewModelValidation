@@ -6,11 +6,18 @@
         <entry key="..\:/1Android/ANDRO_21/12_01_2021/6-21/8-2021/Jetpack_10-30-2021/HMS/app/src/main/res/drawable/ic_leave_application.xml" value="0.235" />
         <entry key="..\:/1Android/ANDRO_21/12_01_2021/6-21/8-2021/Jetpack_10-30-2021/HMS/app/src/main/res/layout/activity_login.xml" value="0.3484375" />
         <entry key="..\:/1Android/ANDRO_21/12_01_2021/6-21/8-2021/Jetpack_10-30-2021/HMS/app/src/main/res/layout/activity_main.xml" value="0.3625" />
+        <entry key="..\:/1Android/ANDRO_21/12_01_2021/6-21/8-2021/Jetpack_10-30-2021/HMS/app/src/main/res/layout/activity_recyclerview.xml" value="0.3625" />
         <entry key="..\:/1Android/ANDRO_21/12_01_2021/6-21/8-2021/Jetpack_10-30-2021/HMS/app/src/main/res/layout/activity_register.xml" value="0.3625" />
         <entry key="..\:/1Android/ANDRO_21/12_01_2021/6-21/8-2021/Jetpack_10-30-2021/HMS/app/src/main/res/layout/activity_shared_flow.xml" value="0.3625" />
         <entry key="..\:/1Android/ANDRO_21/12_01_2021/6-21/8-2021/Jetpack_10-30-2021/HMS/app/src/main/res/layout/activity_splash.xml" value="0.3625" />
         <entry key="..\:/1Android/ANDRO_21/12_01_2021/6-21/8-2021/Jetpack_10-30-2021/HMS/app/src/main/res/layout/fragment_get_free_madicine.xml" value="0.3625" />
         <entry key="..\:/1Android/ANDRO_21/12_01_2021/6-21/8-2021/Jetpack_10-30-2021/HMS/app/src/main/res/layout/fragment_home.xml" value="0.3625" />
+        <entry key="..\:/1Android/ANDRO_21/12_01_2021/6-21/8-2021/Jetpack_10-30-2021/HMS/app/src/main/res/layout/item.xml" value="0.3625" />
+        <entry key="..\:/1Android/ANDRO_21/12_01_2021/6-21/8-2021/Jetpack_10-30-2021/HMS/app/src/main/res/layout/item2.xml" value="0.3625" />
+        <entry key="..\:/1Android/ANDRO_21/12_01_2021/6-21/8-2021/Jetpack_10-30-2021/HMS/app/src/main/res/layout/item_colleague.xml" value="0.3625" />
+        <entry key="..\:/1Android/ANDRO_21/12_01_2021/6-21/8-2021/Jetpack_10-30-2021/HMS/app/src/main/res/layout/item_family.xml" value="0.3625" />
+        <entry key="..\:/1Android/ANDRO_21/12_01_2021/6-21/8-2021/Jetpack_10-30-2021/HMS/app/src/main/res/layout/item_friend.xml" value="0.3625" />
+        <entry key="..\:/1Android/ANDRO_21/12_01_2021/6-21/8-2021/Jetpack_10-30-2021/HMS/app/src/main/res/layout/item_header.xml" value="0.3625" />
       </map>
     </option>
   </component>
